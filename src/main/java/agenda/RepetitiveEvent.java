@@ -36,14 +36,15 @@ public class RepetitiveEvent extends Event {
             return false;
         }
         LocalDateTime closestStart = this.getStart();
-        while(closestStart.toLocalDate().isBefore(date)){
+        LocalDateTime lastFinish = closestStart.plus(this.getDuration());
+        while(lastFinish.toLocalDate().isBefore(date) && !closestStart.plus(1, frequency).toLocalDate().isAfter(date)){
             closestStart = closestStart.plus(1, frequency);
+            lastFinish = closestStart.plus(this.getDuration());
         }
-        LocalDateTime myFinish = closestStart.plus(this.getDuration());
-        if(date.isEqual(closestStart.toLocalDate()) || date.isEqual(myFinish.toLocalDate())){
+        if(date.isEqual(closestStart.toLocalDate()) || date.isEqual(lastFinish.toLocalDate())){
             return true;
         }
-        else if(date.isAfter(closestStart.toLocalDate()) && date.isBefore(myFinish.toLocalDate())){
+        else if(date.isAfter(closestStart.toLocalDate()) && date.isBefore(lastFinish.toLocalDate())){
             return true;
         }
         return false;

@@ -16,10 +16,15 @@ public class NoTerminationEventTest {
 
     // 120 minutes
     Duration min_120 = Duration.ofMinutes(120);
+    
+    // 36 hours = 2160 minutes
+    Duration min_2160 = Duration.ofMinutes(2160);
 
     // A daily repetitive event, never ending
     // November 1st, 2020, 22:30, 120 minutes
     RepetitiveEvent neverEnding = new RepetitiveEvent("Never Ending", nov_1__2020_22_30, min_120, ChronoUnit.DAYS);
+    
+    RepetitiveEvent neverEndingOverlapping = new RepetitiveEvent("Never Enging and Overlapping", nov_1__2020_22_30, min_2160, ChronoUnit.MONTHS);
 
     @Test
     public void eventIsInItsStartDay() {
@@ -44,6 +49,11 @@ public class NoTerminationEventTest {
         assertFalse(neverEnding.isInDay(nov_1_2020.plus(2, ChronoUnit.DAYS)), "Cet événement ne se produit pas à J+2");
         assertTrue(neverEnding.isInDay(nov_1_2020.plus(3, ChronoUnit.DAYS)),  "Cet événement se produit tous les jours");
         assertFalse(neverEnding.isInDay(nov_1_2020.plus(4, ChronoUnit.DAYS)), "Cet événement ne se produit pas à J+4");
+    }
+    
+    @Test
+    public void testIsInDayOverlapping(){
+        assertTrue(neverEndingOverlapping.isInDay(nov_1_2020.plusMonths(1).plusDays(1)), "Cet événement s'étale sur plusieurs jours");
     }
     
 }

@@ -57,7 +57,7 @@ public class EventTest {
         assertTrue(simple.toString().contains("Simple event"), "toString() doit montrer le titre de l'événements");
     }
     @Test
-    public void toIsInDayOverlapping(){
+    public void testIsInDayOverlapping(){
         assertTrue(overlapping2.isInDay(nov_1_2020.plusDays(1)), "Cet événement déborde sur les deux jours suivants");
         assertTrue(overlapping2.isInDay(nov_1_2020.plusDays(2)));
     }
