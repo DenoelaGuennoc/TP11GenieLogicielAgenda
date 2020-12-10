@@ -103,7 +103,7 @@ public class AgendaTest {
     @Test
     public void testIsFreeFor(){
         // no conflict
-        assertTrue(agenda.isFreeFor(simpleC), "Il n'y a pas d'événement dans l'agenda");
+        assertTrue(agendaA.isFreeFor(simpleC), "Il n'y a pas d'événement dans l'agenda");
         agenda.addEvent(simple);
         assertTrue(agenda.isFreeFor(simpleC), "Aucun événement ne chevauche celui-ci");
         
