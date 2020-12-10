@@ -65,22 +65,6 @@ public class Agenda {
             if(event.getStart().plus(event.getDuration()).isAfter(e.getStart()) && event.getStart().isBefore(e.getStart().plus(e.getDuration()))){
                 return false;
             } 
-            // an event starts before the end of an other and finishes after it
-            if(event.getStart().isBefore(e.getStart().plus(e.getDuration())) && event.getStart().isAfter(e.getStart())){
-                return false;
-            }
-            // an event starts before an other and finishes after it
-            if(event.getStart().isBefore(e.getStart()) && event.getStart().plus(event.getDuration()).isAfter(e.getStart().plus(e.getDuration()))){
-                return false;
-            }
-            // the two events start or finish at the same moment
-            if(event.getStart().equals(e.getStart()) || event.getStart().plus(event.getDuration()).equals(e.getStart().plus(e.getDuration()))){
-                return false;
-            }
-            // an event starts after but finishes before the tested event
-            if(event.getStart().isAfter(e.getStart()) && event.getStart().plus(event.getDuration()).isBefore(e.getStart().plus(e.getDuration()))){
-                return false;
-            }
         }
         return true;
     }
