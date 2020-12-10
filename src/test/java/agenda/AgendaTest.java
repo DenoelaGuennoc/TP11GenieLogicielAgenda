@@ -55,25 +55,25 @@ public class AgendaTest {
     Event simple = new Event("Simple event", nov_1__2020_22_30, min_120);
     
     // January 1st, 2020, 10:00, 120 minutes
-    Event simpleA = new Event("Simple event", jan_1_2020_10_00, min_120);
+    Event simpleA = new Event("Simple event A", jan_1_2020_10_00, min_120);
     
     // January 1st, 2020, 13:00, 120 minutes
-    Event simpleB = new Event("Simple event", jan_1_2020_13_00, min_120);
+    Event simpleB = new Event("Simple event B", jan_1_2020_13_00, min_120);
     
     // January 1st, 2020, 11:30, 120 minutes
     Event simpleC = new Event("Simple event", jan_1_2020_11_30, min_120);
     
     // January 1st, 2020, 10:00, 300 minutes
-    Event simpleD = new Event("Simple event", jan_1_2020_10_00, min_300);
+    Event simpleD = new Event("Simple event D", jan_1_2020_10_00, min_300);
     
     // January 1st, 2020, 10:00, 300 minutes
-    Event simpleE = new Event("Simple event", jan_1_2020_11_30, min_300);
+    Event simpleE = new Event("Simple event E", jan_1_2020_11_30, min_300);
     
     // January 1st, 2020, 10:00, 300 minutes
-    Event simpleF = new Event("Simple event", jan_1_2020_12_00, min_60);
+    Event simpleF = new Event("Simple event F", jan_1_2020_12_00, min_60);
     
     // January 1st, 2020, 10:00, 300 minutes
-    Event simpleG = new Event("Simple event", jan_1_2020_12_00, min_60);
+    Event simpleG = new Event("Simple event G", jan_1_2020_12_00, min_60);
 
     // A Weekly Repetitive event ending at a given date
     RepetitiveEvent fixedTermination = new FixedTerminationEvent("Fixed termination weekly", nov_1__2020_22_30, min_120, ChronoUnit.WEEKS, jan_5_2021);
@@ -129,6 +129,21 @@ public class AgendaTest {
         // an event starts after but finishes before the tested event
         agenda.addEvent(simpleG);
         assertFalse(agenda.isFreeFor(simpleC), "Un événement est déjà présent dans ce créneau");
+    }
+    
+    @Test
+    public void testFindByTitle(){
+        assertTrue(agendaA.findByTitle("Simple event").isEmpty());
+        
+        agendaA.addEvent(simple);
+        assertEquals(1, agendaA.findByTitle("Simple event").size(), "1 titre doit être trouvé");
+        assertTrue(agendaA.findByTitle("Simple event").contains(simple), "l'événement trouvé n'est pas le bon");
+        
+        agendaA.addEvent(simpleC);
+        agendaA.addEvent(simpleA);
+        assertEquals(2, agendaA.findByTitle("Simple event").size(), "1 titre doit être trouvé");
+        assertTrue(agendaA.findByTitle("Simple event").contains(simpleC), "l'événement simpleC n'a pas été trouvé");
+        assertFalse(agendaA.findByTitle("Simple event").contains(simpleA), "l'événement simpleA ne devrait pas apparaître ici");
     }
     
     

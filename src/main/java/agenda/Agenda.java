@@ -49,7 +49,7 @@ public class Agenda {
         }
         return eventsByTitle;
     }
-    
+        
     /**
      * Déterminer s’il y a de la place dans l'agenda pour un événement
      * @param e L'événement à tester (on se limitera aux événements simples)
