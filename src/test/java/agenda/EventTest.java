@@ -19,6 +19,9 @@ public class EventTest {
 
     // 89 minutes
     Duration min_89 = Duration.ofMinutes(89);
+    
+    // 36 hours = 2160 minutes
+    Duration min_2160 = Duration.ofMinutes(2160);
 
     // A simple event
     // November 1st, 2020, 22:30, 89 minutes
@@ -27,6 +30,10 @@ public class EventTest {
     // An event overlapping two days
     // November 1st, 2020, 22:30, 120 minutes
     Event overlapping = new Event("Overlapping event", nov_1__2020_22_30, min_120);
+    
+    // An event overlapping three days
+    // November 1st, 2020, 22:30, 2160 minutes
+    Event overlapping2 = new Event("Overlapping event 2", nov_1__2020_22_30, min_2160);
 
     @Test
     public void eventIsInItsStartDay() {
@@ -48,6 +55,11 @@ public class EventTest {
     @Test
     public void toStringShowsEventTitle() {
         assertTrue(simple.toString().contains("Simple event"), "toString() doit montrer le titre de l'événements");
+    }
+    @Test
+    public void toIsInDayOverlapping(){
+        assertTrue(overlapping2.isInDay(nov_1_2020.plusDays(1)), "Cet événement déborde sur les deux jours suivants");
+        assertTrue(overlapping2.isInDay(nov_1_2020.plusDays(2)));
     }
     
 }
